@@ -62,6 +62,26 @@ public class BeatSpawner : MonoBehaviour
             newbeat.transform.position = new Vector2(Random.value * 20 - 10, Random.value * 10 - 5);
             Hit hitScript = newbeat.GetComponent<Hit>();
             hitScript.hitPoints = hp;
+
+            // Get the SpriteRenderer to change its color
+            SpriteRenderer renderer = newbeat.GetComponent<SpriteRenderer>();
+
+            if (renderer != null) // Always good to check if it exists
+            {
+                if (hp == 1)
+                {
+                    renderer.color = Color.red;
+                }
+                else if (hp == 2)
+                {
+                    renderer.color = Color.green;
+                }
+                else if (hp == 3)
+                {
+                    renderer.color = Color.blue;
+                }
+            }
+
             Destroy(newbeat, 1.5f);
 
 

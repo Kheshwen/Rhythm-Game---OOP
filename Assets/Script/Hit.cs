@@ -2,46 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Hit : MonoBehaviour
 {
-    public int hitPoints=1;
-    private SpriteRenderer sr;
-    private Color OriginalColor;
-    private Color FadedColor;
-    // Start is called before the first frame update
+    // This variable will be set by your BeatSpawner
+    public int hitPoints;
+
+    private SpriteRenderer renderer;
+
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
-        OriginalColor = sr.color;
-        FadedColor = new Color(sr.color.r, sr.color.g, sr.color.b, 0f);
-        //StartCoroutine(AlphaLerp());
+        renderer = GetComponent<SpriteRenderer>();
     }
 
-    /*public IEnumerator AlphaLerp()
+    // This runs on every click
+    private void OnMouseDown()
     {
-        for (float i = 0; i < 1.5f; i += Time.deltaTime)
-        {
-            sr.color = Color.Lerp(OriginalColor, FadedColor, i / 1.5f);
-            yield return null;
-        }
-    }*/
+        // 1. First, we reduce the HP
+        hitPoints--;
 
-    public void OnMouseDown()
-    {
-        if (hitPoints == 1)
+        // 2. Now, we check the NEW HP value
+
+        if (hitPoints == 2)
         {
-            Debug.Log("Hit!");
-            ScoreManager.instance.AddPoint();
-           // StopCoroutine("AlphaLerp");
+            // It was 3, now it's 2. Change color to Green.
+            renderer.color = Color.green;
+        }
+        else if (hitPoints == 1)
+        {
+            // It was 2, now it's 1. Change color to Red.
+            renderer.color = Color.red;
+        }
+        else if (hitPoints <= 0)
+        {
+            // It was 1, now it's 0. Destroy it.
             Destroy(gameObject);
         }
-        else if (hitPoints > 1)
-        {
-            hitPoints -= 1;
-            Debug.Log("Hit!");
-
-        }
-
     }
 }
