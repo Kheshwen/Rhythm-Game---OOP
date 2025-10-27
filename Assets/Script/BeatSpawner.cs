@@ -48,52 +48,8 @@ public class BeatSpawner : MonoBehaviour
             float waitTime = targetTime - elapsedTime;
             if (waitTime > 0f) yield return new WaitForSeconds(waitTime);
 
-<<<<<<< HEAD
             SpawnBeat(hitPoints[i]);
             elapsedTime = targetTime;
-=======
-            // Calculate how long we need to wait to reach this specific spawnTime
-            float waitTime = targetSpawnTime - elapsedTime;
-
-            // Only wait if it's a positive amount of time
-            if (waitTime > 0)
-            {
-                yield return new WaitForSeconds(waitTime);
-            }
-
-            // --- Spawn Logic ---
-            Debug.Log("Spawning beat " + beatNumber + " at time: " + targetSpawnTime); // Helpful for debugging
-            GameObject newbeat = Instantiate(beat);
-            
-            newbeat.transform.position = new Vector2(Random.value * 20 - 10, Random.value * 10 - 5);
-            Hit hitScript = newbeat.GetComponent<Hit>();
-            hitScript.hitPoints = hp;
-
-            // Get the SpriteRenderer to change its color
-            SpriteRenderer renderer = newbeat.GetComponent<SpriteRenderer>();
-
-            if (renderer != null) // Always good to check if it exists
-            {
-                if (hp == 1)
-                {
-                    renderer.color = Color.red;
-                }
-                else if (hp == 2)
-                {
-                    renderer.color = Color.green;
-                }
-                else if (hp == 3)
-                {
-                    renderer.color = Color.blue;
-                }
-            }
-
-            Destroy(newbeat, 1.5f);
-
-
-            // Update our elapsed time to this beat's spawn time
-            elapsedTime = targetSpawnTime;
->>>>>>> 2c187b1a05f503d8586a5f5b2c5be9268f54fe7a
         }
 
         Debug.Log("Beatmap finished!");
